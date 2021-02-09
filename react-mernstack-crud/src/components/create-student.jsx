@@ -1,36 +1,26 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import axios from "axios";
+import { createList } from "../actions/cerateStudentList";
 
 const CreateStudent = () => {
+  const dispatch = useDispatch();
+
   const [state, setState] = useState({
     name: "",
     email: "",
     rollno: "",
   });
 
-  
-    const onChange = (e) => {
-      console.log(e.target.name);
-      const value = e.target.value;
-      setState({
-        ...state,
-        [e.target.name]: value,
-      });
-  // const [name, setName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [rollno, setRollNo] = useState("");
-
-    // setState({ email: e.target.value });
+  const onChange = (e) => {
+    console.log(e.target.name);
+    const value = e.target.value;
+    setState({
+      ...state,
+      [e.target.name]: value,
+    });
   };
-  // const onChangeStudentEmail = (e) => {
-  //   setEmail(e.target.value);
-  // };
-
-  // const onChangeStudentRollno = (e) => {
-  //   setRollNo(e.target.value);
-  // };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -41,12 +31,8 @@ const CreateStudent = () => {
       rollno: state.rollno,
     };
 
-    axios
-      .post("http://localhost:4000/students/create-student", studentObject)
-      .then((res) => console.log(res.data));
+    dispatch(createList(studentObject));
     setState({ name: "", email: "", rollno: "" });
-    // setName("");
-    // setEmail("");
   };
 
   return (

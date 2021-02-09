@@ -8,10 +8,11 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
-import CreateStudent from "./components/create-student.component";
-import EditStudent from "./components/edit-student.component";
-import StudentList from "./components/student-list.component";
+import { Provider } from "react-redux";
+import store from "./store";
+import CreateStudent from "./components/create-student";
+import EditStudent from "./components/edit-student";
+import StudentList from "./components/student-list";
 
 function App() {
   return (
@@ -51,12 +52,14 @@ function App() {
           <Row>
             <Col md={12}>
               <div className="wrapper">
-                <Switch>
-                  <Route exact path="/" component={CreateStudent} />
-                  <Route path="/create-student" component={CreateStudent} />
-                  <Route path="/edit-student/:id" component={EditStudent} />
-                  <Route path="/student-list" component={StudentList} />
-                </Switch>
+                <Provider store={store}>
+                  <Switch>
+                    <Route exact path="/" component={CreateStudent} />
+                    <Route path="/create-student" component={CreateStudent} />
+                    <Route path="/edit-student/:id" component={EditStudent} />
+                    <Route path="/student-list" component={StudentList} />
+                  </Switch>
+                </Provider>
               </div>
             </Col>
           </Row>

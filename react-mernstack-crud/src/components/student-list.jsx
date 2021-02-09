@@ -1,24 +1,17 @@
 import React, { Component, useState, useEffect } from "react";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import Table from "react-bootstrap/Table";
 import StudentTableRow from "./StudentTableRow";
-
+import { listStudent } from "../actions/studentListAction";
 const StudentList = () => {
-  const [students, setStudents] = useState([]);
-
+  const dispatch = useDispatch();
+  const studentLis = useSelector((state) => state.studentLis);
+  const { error, loading, list } = studentLis;
   useEffect(() => {
-    axios
-      .get("http://localhost:4000/students/")
-      .then((res) => {
-        setStudents(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [1]);
-
+    dispatch(listStudent());
+  }, [dispatch]);
   const DataTable = () => {
-    return students.map((res, i) => {
+    return list.map((res, i) => {
       return <StudentTableRow obj={res} key={i} />;
     });
   };
