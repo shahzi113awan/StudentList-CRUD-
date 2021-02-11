@@ -1,4 +1,4 @@
-export const editStudent = (state = { obj: {} }, { type, payload }) => {
+export const createLists = (state = { obj: {} }, { type, payload }) => {
   switch (type) {
     case "Update_List_Request":
       return { loading: true, obj: {} };
